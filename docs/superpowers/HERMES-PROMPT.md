@@ -27,6 +27,21 @@ You are picking up a fully-scoped engineering task. **Read these two docs in the
 3. Do NOT use SPEAR for this work — see HANDOFF §5 (it's a port onto third-party packet code with no unit-test surface; verification is compile + in-game).
 4. When green, push your branch to `Hermes-Enthusia/PieCloak` and **open a PR with base `wsg138/PieCloak:main`** (p2wn's repo), head `Hermes-Enthusia:<your-branch>`. PR title/body should explain: re-sync onto current upstream + fix the reveal-stranding bug (permanent stone blocks / vanished holograms), and that it inherits upstream's eviction/tile-entity/reconciliation fixes. Reference the plan. Then notify the user that the PR is open for p2wn to review.
 
+## Skills to use (from your catalog)
+
+Invoke the relevant skill before each phase — don't freestyle steps a skill covers.
+
+- **Comms mode (whole session):** use the `caveman` skill at **ultra** intensity (English, not wenyan) for all your output — ultra-compressed, full technical accuracy. Keep code, commits, and PR text written normally.
+- **Driving the plan:** use the `plan-execution` skill to execute `docs/superpowers/plans/2026-06-02-piecloak-upstream-resync.md` task-by-task (Tasks 0–9). `subagent-driven-development` may back it for independent tasks; optionally wrap the whole run in `enthusia-bug-triage` (bug → Draft PR → iterate-on-reviews).
+- **Setup:** `github-auth` (authenticate gh as Hermes-Enthusia, never BadgersMC), then `github-repo-management` to fork BadgersMC/PieCloak → Hermes-Enthusia/PieCloak, clone, and add the `upstream` (Cubicake) remote.
+- **Build / compile / run:** `java-kotlin-build` for every `./gradlew shadowJar`, compile, and `runServer` step — this is a Gradle multi-module project producing a shadow jar; that skill is the core fit.
+- **Task 2 (the one unit test):** `test-driven-development` — RED→GREEN for the allowlist key-normalization test. Do NOT apply TDD to the controller ports (no unit surface; integration-verified).
+- **Verification (Task 8):** `papermcp-minecraft` to drive the test server and run `/raesp trace` + `/raesp stats` in-game (use `native-mcp` first if you must connect the PaperMCP server). The visual proof is: stand on hologram → visible; LOS of sign → real sign.
+- **Fallback only:** `systematic-debugging` — invoke ONLY if a reveal still strands after the rebuild; drive it from `/raesp trace` output. Do NOT use it to re-derive the already-confirmed root cause in HANDOFF §3.
+- **Before the PR:** `requesting-code-review` as a pre-commit security/quality gate.
+- **PR + review rounds:** `github-pr-workflow` to open the PR (base `wsg138/PieCloak:main`), then `github-code-review` / `trigger-coderabbit-review` to handle p2wn's and CI/CodeRabbit feedback.
+- **Do NOT use** the `spear:*` skills — SPEAR does not fit this port (HANDOFF §5).
+
 ## Constraints
 
 - Branch for feature work; never commit straight to `main`.
